@@ -27,12 +27,13 @@ def __get_census_nodes(ts, census_time):
 	return census_nodes
 
 def __replace_parents_with_pops(ts, census_nodes):
-	ancestor_table = ts.tables.link_ancestors(
+	tables = ts.dump_tables()
+	ancestor_table = tables.link_ancestors(
 		samples=ts.samples(), 
 		ancestors=census_nodes
 		)
 		
-	population_ids = ts.tables.nodes.population
+	population_ids = ts.nodes_population
 	local_ancestry = PopAncestry(left=ancestor_table.left,
 		right=ancestor_table.right,
 		ancestor=ancestor_table.parent,
